@@ -1,0 +1,208 @@
+
+<!-- DON'T EDIT THIS FILE -->
+<!-- Open this file in a browser! -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freemote Practice Problems</title>
+    <script src="1-printHelloName.js"></script>
+    <script src="2-getInitials.js"></script>
+    <script src="3-sumOfPositive.js"></script>
+    <script src="4-multiplyNumbers.js"></script>
+    <script src="5-repeatString.js"></script>
+    <script src="6-isPalindrome.js"></script>
+    <script src="7-countOdd.js"></script>
+    <script src="8-sumMultiples.js"></script>
+    <script src="9-unbalancedArray.js"></script>
+    <script src="10-countVowels.js"></script>
+</head>
+<body>
+    <div class="main-container">
+        <div class="left-section">
+            <div class="inner-section">
+                <h1 style="margin-bottom:0;">Freemote</h1>
+                <em>JavaScript practice problems</em>
+            </div>
+            <ol>
+                <li>
+                    <h3 class="problem-name" id="printHelloName">
+                        printHelloName
+                    </h3>
+                </li>
+                <li>
+                    <h3 class="problem-name" id="getInitials">
+                        getInitials
+                    </h3>
+                </li>
+                <li>
+                    <h3 class="problem-name" id="sumOfPositive">
+                        sumOfPositive
+                    </h3>
+                </li>
+                <li>
+                    <h3 class="problem-name" id="multiplyNumbers">
+                        multiplyNumbers
+                    </h3>
+                </li>
+                <li>
+                    <h3 class="problem-name" id="repeatString">
+                        repeatString
+                    </h3>
+                </li>
+                <li>
+                    <h3 class="problem-name" id="isPalindrome">
+                        isPalindrome
+                    </h3>
+                </li>
+                <li>
+                    <h3 class="problem-name" id="countOdd">
+                        countOdd
+                    </h3>
+                </li>
+                <li>
+                    <h3 class="problem-name" id="sumMultiples">
+                        sumMultiples
+                    </h3>
+                </li>
+                <li>
+                    <h3 class="problem-name" id="unbalancedArray">
+                        unbalancedArray
+                    </h3>
+                </li>
+                <li>
+                    <h3 class="problem-name" id="countVowels">
+                        countVowels
+                    </h3>
+                </li>
+            </ol>
+        </div>
+        <div class="right-section">
+            <div class="inner-section summary-container">
+                <h3 class="problem-name">Select a problem</h3>
+            </div>
+            <div class="right-inner-section">
+                Tests will appear here
+            </div>
+        </div>
+    </div>
+    <script>
+        const problems = document.querySelectorAll('.problem-name');
+        problems.forEach((problem, index) => {
+            runAll(problem.id);
+            problem.addEventListener('click', function() {
+                runAll(problem.id, false);
+            })
+        })
+        // returns {expected, actual, passed, error}
+        function runTest(fn, args, expected) {
+            try {
+                const actual = fn(...args);
+                return {args, expected, actual, passed: expected === actual, error: false}
+            } catch (error) {
+                return {args, expected, passed: false, error}
+            }
+        }
+        // appends test results to the DOM
+        function appendResults(problemName, results) {
+            const container = document.querySelector('.right-inner-section');
+            container.innerHTML = "";
+            let passedCount = 0;
+            let failedCount = 0;
+            for (let result of results) {
+                const node = document.createElement('h5');
+                let args = result.args.map(arg => {
+                    if (typeof arg === 'string') {
+                        return `"${arg}"`;
+                    } else if (Array.isArray(arg)) {
+                        return String(`[${arg}]`);
+                    } else {
+                        return String(arg);
+                    }
+                })
+                const fnStr = `${problemName}(${args})`;
+                if (result.passed) {
+                    node.innerHTML = `✅ <strong>${fnStr}</strong> <br/> <em style="font-weight:400;"> ${result.actual} </em>`;
+                    passedCount++;
+                } else if (result.error) {
+                    node.innerHTML = `❌ <strong>${fnStr}</strong> <br/> <em style="font-weight:400;"><span class="error">${result.error}</span></em>`
+                    failedCount++;
+                } else {
+                    node.innerHTML = `❌ ${fnStr} <br/> <em style="font-weight:400;"> expected ${result.expected} got ${result.actual} </em>`
+                    failedCount++;
+                }
+                container.appendChild(node);
+            }
+            const summaryContainer = document.querySelector('.summary-container');
+            summaryContainer.innerHTML = `
+                <h3 class="problem-name">${problemName}</h3>
+            `
+        }
+        // runs all tests, renders test results
+        function runAll(problemName, initialLoad=true) {
+            try {
+                const fn = eval(problemName);
+                const tests = eval(`${problemName}Tests`);
+                const results = tests.map(test => {
+                    return runTest(fn, test.args, test.expected);
+                })
+                if (!initialLoad) {
+                    appendResults(problemName, results);
+                }
+                const allPassed = results.every(result => result.passed);
+                if (allPassed) {
+                    const problem = document.querySelector(`#${problemName}`);
+                    problem.innerText = problem.id + ' ✅'
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        }
+    </script>
+    <style>
+        h1, h3, h4, h5 {
+            font-family:'Courier New', Courier, monospace
+        }
+        h1 {
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 3px;
+        }
+        h3:hover {
+            cursor: pointer;
+            opacity: .6;
+        }
+        /* https://app.kajabi.com/login */
+        .main-container {
+            width: 50%;
+            min-width: 300px;
+            display: flex;
+            box-shadow: 5px 5px 17px 0px rgba(0,0,0,0.24);
+            margin: auto;
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .left-section {
+            width: 50%;
+            padding: 30px;
+        }
+        .inner-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .right-section {
+            /* display: flex; */
+            width: 50%;
+            padding: 80px;
+            text-align: center;
+            /* justify-content: center; */
+            /* flex-direction: column; */
+            background: #d2e7f9;
+        }
+    </style>
+</body>
+</html>

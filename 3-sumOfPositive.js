@@ -5,9 +5,12 @@
 */
 
 function sumOfPositive(nums) {
-    
-    // your code here
-    
+  let positiveNums = nums.filter(num => num > 0)
+  if (positiveNums.length > 0) {
+    return positiveNums.reduce((sum, num) => total = sum + num)
+  } else {
+    return positiveNums.length 
+  }
 }
 
 const sumOfPositiveTests = [

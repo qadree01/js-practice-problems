@@ -5,9 +5,8 @@
 */
 
 function getInitials(name) {
-    
-    // your code here
-    
+  const names = name.split(' ')
+  return `${names[0][0]}.${names[1][0]}`
 }
 
 // Don't Edit

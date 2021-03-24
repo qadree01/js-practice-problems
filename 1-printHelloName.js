@@ -4,9 +4,7 @@
 */
 
 function printHelloName(name) {
-
-    // your code here
-    
+  return `Hello, ${name}!`
 }
 
 // Don't Edit

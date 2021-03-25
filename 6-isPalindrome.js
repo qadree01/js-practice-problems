@@ -6,9 +6,7 @@
 */
 
 function isPalindrome(str) {
-    
-    // your code here
-    
+  return str === str.split('').reverse().join('')
 }
 
 const isPalindromeTests = [

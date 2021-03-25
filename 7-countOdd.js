@@ -5,9 +5,20 @@
 */
 
 function countOdd(n) {
-    
-    // your code here
-    
+  let oddNum = []
+  let oddNums = 0
+
+  while (n > 0) {
+    n -= 1
+    oddNum += n
+  }
+  
+  for (let i = 0; i < oddNum.length; i++) {
+    if (i % 2 === 1) {
+      oddNums += 1
+    }
+  }
+  return oddNums
 }
 
 const countOddTests = [

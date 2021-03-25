@@ -5,9 +5,11 @@
 */
 
 function repeatString(s, n) {
-    
-    // your code here
-    
+  newStr = ''
+  for (let i = 0; i < n; i++) {
+    newStr += s
+  }
+  return newStr
 }
 
 const repeatStringTests = [

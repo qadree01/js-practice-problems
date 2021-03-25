@@ -5,9 +5,14 @@
 */
 
 function countVowels(s) {
-    
-    // your code here
-    
+  vowels = 0
+  
+  for (let vowel of s) {
+    if (vowel === 'a' || vowel === 'e' || vowel === 'i' || vowel === 'o' || vowel === 'u') {
+      vowels++ 
+    }
+  }
+  return vowels
 }
 
 const countVowelsTests = [
